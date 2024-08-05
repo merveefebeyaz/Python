@@ -49,5 +49,103 @@ Paket=Modül=Kütüphane Yönetimi şeklinde bilinir.
 Paket Yönetim Araçları:
     1-pip(requirements.txt)
     2-pipenv(Pipfile)
-    3-Conda(environment.yaml) !Conda hem sanal ortam yöneticisi hem de bir paket yöneticisi 
+    3-Conda(environment.yaml) !Conda hem sanal ortam yöneticisi hem de bir paket yöneticisidir.
+    
+-Bu araçlar python dışındaki paketleri indirme, kurma, güncelleme gibi işlevleri yerine getirir.
+Bağımlılık yönetimi dependency management yaparlar.
+
+-Sanal ortamlar ile paket yönetim araçlarının ilişkisi nedir?
+
+*pip ile conda arasında ne fark vardır?
+conda: package management ve virtual environment yönetimi için kullanılabilir.
+pip: paket yönetimi için kullanılabilir.
+
+---------------------------------------------------------------------------
+UYGULAMA: SANAL ORTAM VE PAKET YÖNETİMİ
+
+-Pycharm bize hem pythonla çalışmak hem de işletim sistemimiz ile çalışmak için alanlar sağlamıştır.
+-Terminal komut satırı bölümünde yazılan komutlar işletim sistemini ilgilendirir.
+-Bilgisayardaki sanal ortamların listelenmesi için:
+    conda env list >> Komtutu kullanılır.
+    
+**Sanal Ortam Oluşturma:
+    conda create -n myenv >> RUN şeklinde oluşturulur. Bu şekilde istenilen isim ile bir sanal ortam oluşturulur.
+-Bu ortamı aktif edebilmek için 
+    conda activate myenv >> kodunu kullanmamız gerekiyor.
+
+-conda list >> dersek sanal ortamda hangi kütüphaneler var onu görürüz.
+
+-base olan sanal ortamamızda bir sürü küyüphane var ama kendi oluşturduğumuz myenv sanal ortamımızda hiçbir kütüphane yok.
+
+-Bir sanal ortama paket yüklemek istediğimizde ya da ya da çalışılan ortama
+ekstra paket yükletilmek istenirse 
+    conda install (istenilen kütüphane)>> RUN ifadesi kullanılır.
+    conda install numpy
+Burada sadece numpy değil diğer gerekli kütüphaneleri de bağımlı olarak indiriyor örneğin python veya pip gibi.
+
+-Aynı anda 1'den fazla paket yüklemek istiyorsak ne yapabiliriz?
+Aralarında sadece 1 boşluk bırakarak 3 veya daha fazla kütüphaneyi yükleyebiliriz.
+    conda install scipy pandas 
+
+-Belirli bir proje için özel bir numpy versiyonu kullanmak istersek:
+Önce var olan paketi silelim bunun için:
+    conda remove (paketin ismi)
+    conda remove numpy
+Burada silinirken nasıl yüklenirken beraberinde başka paketleri de yüklediyse
+silerken de onları da siliyor. Silinirken versiyon numarasını görebiliriz.
+numpy-1.26.4 bu silinen versiyondu. Bir önceki sürüm olan numpy-1.26.3
+indirelim. Bunun için 
+    conda install numpy=1.26.3 >> Run 
+    
+!!!Conda da tek eşittir kullanılır; pip'te 2 tane eşittir kullanılır!!!
+
+Kütüphanemize 1.26.3 versiyonu eklendi mi diye kontrol edelim.
+    conda list
+Eklenmiş :)
+
+-Yeni versiyona(1.26.4) tekrar nasıl geçeriz? 2 seçenek var:
+    1-Baştan kurulum yapmak
+    2-Upgrade ifadesi kullanılır.
+    conda upgrade numpy >> RUN ile son versiyona geçiş yapılır.
+
+-Çalışma kitabımızdaki bütün kütüphaneleri güncellemek istersek:
+    conda upgrade -all >> RUN kullanabiliriz bir de pip(python package index) kullanabiliriz.
+    pip install paket_adı
+    pip install pandas
+
+-pip ile versiyona göre paket yükleme:
+    pip install pandas==2.2.1  
+!!!Pip'te 2 eşittir kullanılıyordu!!!
+!!!Paket yönetim aracı Pip, biz bir önceki versiyonu istediğimiz için onu
+indirip diğer versiyonu otomatik olarak sildi. Conda'da bunu manuel olarak yapıyorduk.
+
+-Çalışılan kütüphaneleri başka kişilere aktarmak için
+    requirements.txt dosyası (pip dünyasında yaygındır) ya da
+    yaml file(conda tarafında yaygındır) oluşturma ile gerçekleşir.
+    conda env export > environment.yaml >> RUN
+
+Dosyaları listelemek için dir(Windowsta dir, Mac'te ls) komutu kullanılır.
+Daha sonra
+    Project >> MiuuIPython >> altına environment.yaml dosyasının gelmiş olduğunu görüyoru<.
+
+Bu dosyaya çift tıklanırsa sanal ortamdaki tüm kütüphaneleri gösterir.
+
+-Var olan sanal ortamı tamamen silmek için:
+    conda env remove -n myenv >> RUN
+
+-Paketlerin versiyonlarını barındıran bir dosyayı kullanarak sıfırdan
+aynı sanal ortamı oluşturmak için:
+    conda env create -f environment.yaml >> RUN
+Daha sonra sanal ortamı aktifleştir:
+    conda activate myenv >> RUN
+
+--------------------------------------------------
+
+QUIZ:
+1-İzole çalışma ortamları için kullanılan ortam = Virtual Environment
+2-Paket yükseltmesi için kullanılan=conda upgrade
+3-Hangi komut bilgisayarınızdaki sanal ortamı oluşturmak için kullanılır?=conda create
+4-Hem sanal ortam oluşturabileceğimiz hem de paket indirme paket güncelleme paket silme gibi paketleri de(Paket yönetimi yani) ilgilendiren işlemleri yapabilmemizi sağlayan nedir?=conda
+5-Sanal ortam araçlarından biri değildir=pip
+
 """
